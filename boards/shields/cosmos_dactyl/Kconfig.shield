@@ -1,0 +1,5 @@
+config SHIELD_COSMOS_DACTYL_LEFT
+    def_bool $(shields_list_contains,cosmos_dactyl_left)
+
+config SHIELD_COSMOS_DACTYL_RIGHT
+    def_bool $(shields_list_contains,cosmos_dactyl_right)
