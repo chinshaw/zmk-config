@@ -1,0 +1,29 @@
+/*
+ * VIK connector definition for Cosmos Lemon Wireless v0.4.
+ * Maps the 12-pin FPC VIK breakout to nRF52840 GPIOs.
+ */
+
+#include <dt-bindings/gpio/gpio.h>
+
+/ {
+	vik_conn: vik_connector {
+		compatible = "sadekbaroudi,vik-connector";
+		#gpio-cells = <2>;
+		gpio-map-mask = <0xffffffff 0xffffffc0>;
+		gpio-map-pass-thru = <0 0x3f>;
+		gpio-map
+			= <0 0 &gpio0 15 0>		/* vik SDA  (P0.15) */
+			, <1 0 &gpio0 13 0>		/* vik SCL  (P0.13) */
+			, <2 0 &gpio0 26 0>		/* vik RGB  (P0.26) */
+			, <3 0 &gpio0 29 0>		/* vik AD_1 / GP1 (P0.29) */
+			, <4 0 &gpio0 12 0>		/* vik MOSI (P0.12) */
+			, <5 0 &gpio0 31 0>		/* vik AD_2 / GP2 (P0.31) */
+			, <6 0 &gpio0  8 0>		/* vik CS   (P0.08) */
+			, <7 0 &gpio0  6 0>		/* vik MISO (P0.06) */
+			, <8 0 &gpio1  9 0>		/* vik SCLK (P1.09) */
+			;
+	};
+};
+
+vik_i2c: &i2c0 {};
+vik_spi: &spi1 {};
