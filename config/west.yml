@@ -16,7 +16,7 @@ manifest:
       revision: main
       import: app/west.yml
     - name: zmk-fingerpunch-vik
-      remote: rianadon
+      remote: sadekbaroudi
       revision: main
       import: config/deps.yml
   self:
