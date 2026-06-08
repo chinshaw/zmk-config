@@ -21,9 +21,9 @@
 ---
 include:
   - board: cosmos_lemon_wireless_v4
-    shield: cosmos_dactyl_left vik_cirque_spi
+    shield: cosmos_dactyl_left
     snippet: zmk-usb-logging;studio-rpc-usb-uart
     cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n -DCONFIG_ZMK_STUDIO=y
   - board: cosmos_lemon_wireless_v4
-    shield: cosmos_dactyl_right vik_cirque_spi
-    cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n -DCONFIG_ZMK_STUDIO=y
+    shield: cosmos_dactyl_right vik_cirque_spi_split
+    cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=y -DCONFIG_ZMK_STUDIO=y
