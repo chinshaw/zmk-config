@@ -20,5 +20,7 @@ requires:
   - makerdiary_nrf52840_m2
 
 siblings:
-  - cosmos_dactyl_left
-  - cosmos_dactyl_right
+  - cosmos_dactyl_r2c_left
+  - cosmos_dactyl_c2r_left
+  - cosmos_dactyl_r2c_right
+  - cosmos_dactyl_c2r_right

@@ -1,5 +1,9 @@
 config SHIELD_COSMOS_DACTYL_LEFT
-    def_bool $(shields_list_contains,cosmos_dactyl_left)
+    bool "PeaMK Left"
+    default y if $(shields_list_contains,cosmos_dactyl_r2c_left)
+    default y if $(shields_list_contains,cosmos_dactyl_c2r_left)
 
 config SHIELD_COSMOS_DACTYL_RIGHT
-    def_bool $(shields_list_contains,cosmos_dactyl_right)
+    bool "PeaMK Right"
+    default y if $(shields_list_contains,cosmos_dactyl_r2c_right)
+    default y if $(shields_list_contains,cosmos_dactyl_c2r_right)
