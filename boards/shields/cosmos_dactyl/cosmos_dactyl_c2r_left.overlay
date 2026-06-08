@@ -2,7 +2,7 @@
 // See https://zmk.dev/docs/development/hardware-integration/new-shield for more
 // instructions.
 
-#include "cosmos_dactyl.dtsi"
+#include "cosmos_dactyl_c2r.dtsi"
 
 &bootloader_key_left {
     status = "okay";
