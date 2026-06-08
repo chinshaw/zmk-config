@@ -13,6 +13,18 @@ if SHIELD_COSMOS_DACTYL_LEFT || SHIELD_COSMOS_DACTYL_RIGHT
 config ZMK_SPLIT
     default y
 
-endif # SHIELD_COSMOS_DACTYL_LEFT || SHIELD_COSMOS_DACTYL_RIGHT
+config SPI
+    default y
 
+config ZMK_RGB_UNDERGLOW
+    default y
+    select WS2812_STRIP
+    select SPI
+
+config ZMK_RGB_UNDERGLOW_BRT_START
+    default 50
+
+config ZMK_RGB_UNDERGLOW_EFF_START
+    default 3
+endif # SHIELD_COSMOS_DACTYL_LEFT || SHIELD_COSMOS_DACTYL_RIGHT
 
