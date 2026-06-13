@@ -1,20 +1,174 @@
-// This file was generated from a template. Edit it to match your keyboard.
-// See https://zmk.dev/docs/development/hardware-integration/new-shield for more instructions.
-//
-// #include <behaviors.dtsi>
-// #include <dt-bindings/zmk/keys.h>
-//
-// / {
-//     // Define a default keymap here.
-//     // See https://zmk.dev/docs/development/hardware-integration/new-shield#default-keymap.
-//     keymap {
-//         compatible = "zmk,keymap";
-//
-//         default_layer {
-//             bindings = <
-//                 &kp N1 &kp N2    &kp N3 &kp N4
-//                 &kp A  &kp B     &kp C  &kp D
-//             >;
-//         };
-//     };
-// };
+/*
+ * Copyright (c) 2024 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ *
+ * Cosmos Dactyl QWERTY Keymap
+ *
+ * ─── Physical Layout ───
+ * Reference: boards/shields/cosmos_dactyl/cosmos_dactyl-layouts.dtsi
+ *   layout_0 defines 69 physical key positions (indices 0-68).
+ *   Positions 0-51  = Main 5-row alpha cluster (5 rows × variable cols)
+ *   Positions 52-60 = Left thumb cluster (9 keys)
+ *   Positions 61-68 = Right thumb cluster (8 keys)
+ *
+ * ─── Matrix (this keymap) ───
+ * 7 rows × 14 columns = 98 positions, using RC(row,col) bindings.
+ *   Left half:  cols 0-6, rows 0-6
+ *   Right half: cols 7-13, rows 0-6 (col-offset=7)
+ * Assumed column-to-finger mapping (may need adjustment):
+ *   Left:  L0=pko  L1=pki  L2=ring  L3=mid  L4=idx-i  L5=idx-o  L6=thumb
+ *   Right: R7=idx-i  R8=idx-o  R9=mid  R10=ring  R11=pki  R12=pko  R13=thumb
+ * Positions without physical keys = &none.
+ *
+ * ─── If keys map to wrong RC positions ───
+ * Press a key, see what character appears, then swap that key's row/col
+ * entry in the bindings array below to the correct position.
+ *
+ * ─── Layers ───
+ * Default: QWERTY alphas + number row + modifiers
+ * Lower:   Symbols, F-keys, navigation (hold SPACE)
+ * Raise:   Media controls, BT profiles (hold ENTER)
+ * Adjust:  Bootloader (hold SPACE + ENTER)
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
+
+/ {
+    behaviors {
+        /* Tap for key, hold for momentary layer */
+        l_lower: l_lower {
+            compatible = "zmk,behavior-hold-tap";
+            label = "L_LOWER";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            flavor = "tap-preferred";
+            bindings = <&mo>, <&kp>;
+        };
+        l_raise: l_raise {
+            compatible = "zmk,behavior-hold-tap";
+            label = "L_RAISE";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            flavor = "tap-preferred";
+            bindings = <&mo>, <&kp>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        /* ════════════════════════════════════════════
+           DEFAULT LAYER — QWERTY
+           ════════════════════════════════════════════ */
+        default_layer {
+            label = "QWERTY";
+            bindings = <
+/* Row 0 (number row)          ─layout pos 0-7─ */
+/*  col0          col1          col2          col3          col4          col5          col6          col7          col8          col9          col10         col11         col12         col13          */
+    &none         &kp GRAVE     &kp N1        &kp N2        &kp N3        &kp N4        &kp N5        &kp N6        &kp N7        &kp N8        &kp N9        &kp N0        &kp MINUS     &kp EQUAL
+/* Row 1 (QWERTY top)          ─layout pos 8-19─ */
+    &kp TAB       &kp Q         &kp W         &kp E         &kp R         &kp T         &none         &kp Y         &kp U         &kp I         &kp O         &kp P         &kp LBRC      &kp RBRC
+/* Row 2 (home row)            ─layout pos 20-31─ */
+    &kp LCTRL     &kp A         &kp S         &kp D         &kp F         &kp G         &none         &kp H         &kp J         &kp K         &kp L         &kp SEMIC     &kp QUOTE     &kp BSLH
+/* Row 3 (QWERTY bottom)       ─layout pos 32-43─ */
+    &kp LSHFT     &kp Z         &kp X         &kp C         &kp V         &kp B         &none         &kp N         &kp M         &kp COMMA     &kp DOT       &kp FSLH      &kp RSHFT     &none
+/* Row 4 (bottom nav/mod keys) ─layout pos 44-51─ */
+    &kp LGUI      &kp ESC       &kp DEL       &kp INS       &none         &none         &none         &none         &none         &kp HOME      &kp END       &kp PG_UP     &kp PG_DN     &none
+/* Row 5 (thumbs top)          ─layout pos 52-55, 65-68─ */
+    &kp LALT      &none         &none         &none         &none         &none         &l_lower 1 SPACE &none       &none         &none         &none         &none         &none         &l_raise 2 ENTER
+/* Row 6 (thumbs bottom)       ─layout pos 56-64─ */
+    &none         &none         &none         &none         &none         &none         &kp BSPC      &none         &none         &none         &none         &none         &none         &kp DELETE
+            >;
+        };
+
+        /* ─── HOME ROW MOD TEMPLATES (experimental) ───
+           Uncomment the rows below and comment out the default layer's Row 2
+           to enable home-row mod-tap (hold for modifier, tap for key).
+           Adjust tapping-term-ms and flavor to your preference.
+
+           Row 2 (home row with mod-tap):
+           &kp LCTRL     &mt LSHFT A   &mt LGUI S    &mt LALT D    &kp F         &kp G         &none         &kp H         &kp J         &mt LALT K    &mt LGUI L    &mt RSHFT SEMIC &kp QUOTE     &kp BSLH
+
+           Note: Key-repeating may change with home row mods.
+           Consider using "balanced" flavor if tap-preferred feels off.
+        */
+
+        /* ════════════════════════════════════════════
+           LOWER LAYER — Symbols, F-keys, Navigation
+           Hold SPACE (left thumb) to activate.
+           Tap ENTER on this layer (right thumb) for Adjust.
+           ════════════════════════════════════════════ */
+        lower_layer {
+            label = "Lower";
+            bindings = <
+/* Row 0            ── F-keys ── */
+    &trans        &trans        &kp F1        &kp F2        &kp F3        &kp F4        &kp F5        &kp F6        &kp F7        &kp F8        &kp F9        &kp F10       &kp F11       &kp F12
+/* Row 1            ── Shifted symbol row ── */
+    &trans        &kp EXCL      &kp AT        &kp HASH      &kp DLLR      &kp PRCNT     &none         &kp CARET     &kp AMPS      &kp STAR      &kp LPAR      &kp RPAR      &kp UNDER     &kp PLUS
+/* Row 2            ── Navigation (arrows) ── */
+    &trans        &none         &kp LEFT      &kp DOWN      &kp UP        &kp RIGHT     &none         &none         &kp HOME      &none         &none         &none         &none         &none
+/* Row 3            ── Additional nav ── */
+    &trans        &none         &none         &none         &none         &none         &none         &none         &kp END       &none         &none         &none         &none         &none
+/* Row 4 */
+    &trans        &trans        &trans        &trans        &none         &none         &none         &none         &none         &trans        &trans        &trans        &trans        &none
+/* Row 5 */
+    &trans        &none         &none         &none         &none         &none         &trans        &none         &none         &none         &none         &none         &none         &mo 3
+/* Row 6 */
+    &none         &none         &none         &none         &none         &none         &trans        &none         &none         &none         &none         &none         &none         &trans
+            >;
+        };
+
+        /* ════════════════════════════════════════════
+           RAISE LAYER — Media & BT Controls
+           Hold ENTER (right thumb) to activate.
+           Tap SPACE on this layer (left thumb) for Adjust.
+           ════════════════════════════════════════════ */
+        raise_layer {
+            label = "Raise";
+            bindings = <
+/* Row 0            ── Media / BT ── */
+    &trans        &trans        &kp C_VOL_DN  &kp C_VOL_UP  &kp C_MUTE    &trans        &trans        &trans        &trans        &bt BT_PRV   &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &trans
+/* Row 1            ── Track controls ── */
+    &trans        &trans        &kp C_PREV    &kp C_PP      &kp C_NEXT    &trans        &none         &trans        &trans        &trans        &trans        &trans        &trans        &trans
+/* Row 2            ── Output selection ── */
+    &trans        &trans        &out OUT_USB  &out OUT_BT   &out OUT_TOG  &trans        &none         &trans        &trans        &trans        &trans        &trans        &trans        &trans
+/* Row 3 */
+    &trans        &trans        &trans        &trans        &trans        &trans        &none         &trans        &trans        &trans        &trans        &trans        &trans        &none
+/* Row 4 */
+    &trans        &trans        &trans        &trans        &none         &none         &none         &none         &none         &trans        &trans        &trans        &trans        &none
+/* Row 5 */
+    &trans        &none         &none         &none         &none         &none         &mo 3         &none         &none         &none         &none         &none         &none         &trans
+/* Row 6 */
+    &none         &none         &none         &none         &none         &none         &trans        &none         &none         &none         &none         &none         &none         &trans
+            >;
+        };
+
+        /* ════════════════════════════════════════════
+           ADJUST LAYER — Bootloader / Config
+           Hold SPACE + ENTER (both thumbs) to activate.
+           ════════════════════════════════════════════ */
+        adjust_layer {
+            label = "Adjust";
+            bindings = <
+/* Row 0 */
+    &trans        &trans        &trans        &trans        &trans        &trans        &trans        &trans        &trans        &trans        &trans        &trans        &trans        &trans
+/* Row 1 */
+    &trans        &trans        &trans        &trans        &trans        &trans        &none         &trans        &trans        &trans        &trans        &trans        &trans        &trans
+/* Row 2 */
+    &trans        &trans        &bt BT_CLR    &trans        &trans        &trans        &none         &trans        &trans        &trans        &trans        &trans        &trans        &trans
+/* Row 3 */
+    &trans        &trans        &trans        &trans        &trans        &trans        &none         &trans        &trans        &trans        &trans        &trans        &trans        &none
+/* Row 4 */
+    &trans        &trans        &trans        &trans        &none         &none         &none         &none         &none         &trans        &trans        &trans        &trans        &none
+/* Row 5 ── Bootloader on left thumb column */
+    &bootloader   &none         &none         &none         &none         &none         &trans        &none         &none         &none         &none         &none         &none         &trans
+/* Row 6 */
+    &none         &none         &none         &none         &none         &none         &trans        &none         &none         &none         &none         &none         &none         &trans
+            >;
+        };
+    };
+};

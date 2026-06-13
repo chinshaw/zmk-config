@@ -31,8 +31,10 @@
 / {
     chosen {
         zmk,kscan = &kscan0;
-        zmk,physical-layout = &physical_layout;
-   //     zmk,matrix_transform = &default_transform;
+        zmk,matrix_transform = &default_transform;
+        // Physical layout reference: cosmos_dactyl-layouts.dtsi (&layout_0, 69 keys)
+        // Uncomment below to use physical-layout positions instead of matrix RC:
+        // zmk,physical-layout = &layout_0;
     };
 
     default_transform: keymap_transform_0 {
