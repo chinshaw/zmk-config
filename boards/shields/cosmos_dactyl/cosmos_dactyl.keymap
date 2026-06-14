@@ -7,10 +7,9 @@
  *
  * ─── Physical Layout ───
  * Reference: cosmos_dactyl-layouts.dtsi
- *   layout_0 defines 69 physical key positions (indices 0-68).
- *   Positions 0-51  = Main 5-row alpha cluster (5 rows × variable cols)
- *   Positions 52-60 = Left thumb cluster (9 keys)
- *   Positions 61-68 = Right thumb cluster (8 keys)
+ *   layout_0 is an interim 7x14 grid (98 positions) matching this keymap.
+ *   layout_dactyl preserves the real 69-key dactyl shape but is disabled
+ *   until a 69-position keymap is created.
  *
  * ─── Matrix (this keymap) ───
  * 7 rows × 14 columns = 98 positions, using RC(row,col) bindings.
