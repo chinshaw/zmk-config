@@ -73,7 +73,7 @@
 /* Row 1 (QWERTY top)          ─layout pos 8-19─ */
     &kp TAB       &kp Q         &kp W         &kp E         &kp R         &kp T         &none         &kp Y         &kp U         &kp I         &kp O         &kp P         &kp LBRC      &kp RBRC
 /* Row 2 (home row)            ─layout pos 20-31─ */
-    &kp LCTRL     &kp A         &kp S         &kp D         &kp F         &kp G         &none         &kp H         &kp J         &kp K         &kp L         &kp SEMIC     &kp QUOTE     &kp BSLH
+    &kp LCTRL     &kp A         &kp S         &kp D         &kp F         &kp G         &none         &kp H         &kp J         &kp K         &kp L         &kp SEMI      &kp SQT       &kp BSLH
 /* Row 3 (QWERTY bottom)       ─layout pos 32-43─ */
     &kp LSHFT     &kp Z         &kp X         &kp C         &kp V         &kp B         &none         &kp N         &kp M         &kp COMMA     &kp DOT       &kp FSLH      &kp RSHFT     &none
 /* Row 4 (bottom nav/mod keys) ─layout pos 44-51─ */
@@ -91,7 +91,7 @@
            Adjust tapping-term-ms and flavor to your preference.
 
            Row 2 (home row with mod-tap):
-           &kp LCTRL     &mt LSHFT A   &mt LGUI S    &mt LALT D    &kp F         &kp G         &none         &kp H         &kp J         &mt LALT K    &mt LGUI L    &mt RSHFT SEMIC &kp QUOTE     &kp BSLH
+           &kp LCTRL     &mt LSHFT A   &mt LGUI S    &mt LALT D    &kp F         &kp G         &none         &kp H         &kp J         &mt LALT K    &mt LGUI L    &mt RSHFT SEMI  &kp SQT       &kp BSLH
 
            Note: Key-repeating may change with home row mods.
            Consider using "balanced" flavor if tap-preferred feels off.
